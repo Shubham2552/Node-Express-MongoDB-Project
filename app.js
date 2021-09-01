@@ -21,8 +21,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes=require('./routes/users')
 const campgroundRoutes=require('./routes/campground')
 const reviewRoutes=require('./routes/reviews');
-const MongoDBStore = require("connect-mongo")
-const dbUrl='mongodb://localhost:27017/yelp-camp'
+const MongoStore = require('connect-mongo');
+const dbUrl='mongodb+srv://Admin_User:Shubh@2525@cluster0.dhfgb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 //'mongodb://localhost:27017/yelp-camp'
 //process.env.DB_URL
 
@@ -32,6 +32,7 @@ mongoose.connect(dbUrl, {
     useUnifiedTopology: true,
     useFindAndModify:false
 });
+
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -59,7 +60,7 @@ app.use(mongoSanitize())
 
 const secret=process.env.SECRET||'thisshouldbeasecret'
 
-const store = MongoDBStore.create({
+const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
