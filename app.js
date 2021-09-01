@@ -22,7 +22,7 @@ const userRoutes=require('./routes/users')
 const campgroundRoutes=require('./routes/campground')
 const reviewRoutes=require('./routes/reviews');
 const MongoDBStore = require("connect-mongo")
-const dbUrl=process.env.DB_URL
+const dbUrl='mongodb://localhost:27017/yelp-camp'
 //'mongodb://localhost:27017/yelp-camp'
 //process.env.DB_URL
 
@@ -73,7 +73,7 @@ store.on("error", function (e) {
 
 
 const sessionConfig={
-    store,
+    store:store,
     name:'session',
     secret,
     resave:false,
