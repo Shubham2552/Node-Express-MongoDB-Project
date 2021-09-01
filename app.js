@@ -24,7 +24,7 @@ const reviewRoutes=require('./routes/reviews');
 const { connect } = require('./routes/reviews');
 const { contentSecurityPolicy } = require('helmet');
 const MongoDBStore = require("connect-mongo")
-const dbUrl=process.env.DB_URL||'mongodb://localhost:27017/yelp-camp'
+const dbUrl=process.env.DB_URL
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -59,6 +59,12 @@ const store = MongoDBStore.create({
         secret,
     }
 })
+
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e)
+})
+
+
 const sessionConfig={
     store,
     name:'session',
@@ -116,7 +122,7 @@ app.use((err, req, res, next) => {
     if (!err.message) err.message = 'Oh No, Something Went Wrong!'
     res.status(statusCode).render('error', { err })
 })
-const port=process.env.port||3000
+const port=process.env.PORT||3000
 app.listen(port, () => {
     console.log(`Serving on port ${port}`)
 })
