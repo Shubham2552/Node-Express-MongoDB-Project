@@ -21,8 +21,6 @@ const mongoSanitize = require('express-mongo-sanitize');
 const userRoutes=require('./routes/users')
 const campgroundRoutes=require('./routes/campground')
 const reviewRoutes=require('./routes/reviews');
-const { connect } = require('./routes/reviews');
-const { contentSecurityPolicy } = require('helmet');
 const MongoDBStore = require("connect-mongo")
 const dbUrl=process.env.DB_URL
 
@@ -38,8 +36,15 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
     console.log("Database connected");
 });
-
 const app = express();
+const { connect } = require('./routes/reviews');
+const { contentSecurityPolicy } = require('helmet');
+
+
+
+
+
+
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
