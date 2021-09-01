@@ -15,7 +15,7 @@ const LocalStrategy = require('passport-local')
 const User=require('./models/user')
 
 
-
+const helmet=require('helmet')
 const mongoSanitize = require('express-mongo-sanitize');
 
 const userRoutes=require('./routes/users')
@@ -88,7 +88,7 @@ const sessionConfig={
 
 app.use(session(sessionConfig))
 app.use(flash())
-
+app.use(helmet( {contentSecurityPolicy: false}))
 
 
 
