@@ -63,7 +63,7 @@ const store = MongoDBStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret,
+        secret: 'squirrel'
     }
 })
 
